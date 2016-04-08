@@ -12,6 +12,9 @@
 		0A747D3D1CAC8868008C6D87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A747D3B1CAC8868008C6D87 /* Main.storyboard */; };
 		0A747D3F1CAC8868008C6D87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A747D3E1CAC8868008C6D87 /* Assets.xcassets */; };
 		0A747D421CAC8868008C6D87 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A747D401CAC8868008C6D87 /* LaunchScreen.storyboard */; };
+		0A747D4A1CACA50B008C6D87 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A747D491CACA50B008C6D87 /* DrawView.swift */; };
+		0A747D4C1CADC4B3008C6D87 /* TrainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A747D4B1CADC4B3008C6D87 /* TrainViewController.swift */; };
+		0A747D4E1CAF0956008C6D87 /* Perceptron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A747D4D1CAF0956008C6D87 /* Perceptron.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		0A747D3E1CAC8868008C6D87 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A747D411CAC8868008C6D87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A747D431CAC8868008C6D87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A747D491CACA50B008C6D87 /* DrawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
+		0A747D4B1CADC4B3008C6D87 /* TrainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainViewController.swift; sourceTree = "<group>"; };
+		0A747D4D1CAF0956008C6D87 /* Perceptron.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Perceptron.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,10 +62,13 @@
 			children = (
 				0A747D371CAC8868008C6D87 /* AppDelegate.swift */,
 				0A747D391CAC8868008C6D87 /* ViewController.swift */,
+				0A747D491CACA50B008C6D87 /* DrawView.swift */,
 				0A747D3B1CAC8868008C6D87 /* Main.storyboard */,
 				0A747D3E1CAC8868008C6D87 /* Assets.xcassets */,
 				0A747D401CAC8868008C6D87 /* LaunchScreen.storyboard */,
 				0A747D431CAC8868008C6D87 /* Info.plist */,
+				0A747D4B1CADC4B3008C6D87 /* TrainViewController.swift */,
+				0A747D4D1CAF0956008C6D87 /* Perceptron.swift */,
 			);
 			path = OCR;
 			sourceTree = "<group>";
@@ -135,8 +144,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A747D4A1CACA50B008C6D87 /* DrawView.swift in Sources */,
+				0A747D4C1CADC4B3008C6D87 /* TrainViewController.swift in Sources */,
 				0A747D3A1CAC8868008C6D87 /* ViewController.swift in Sources */,
 				0A747D381CAC8868008C6D87 /* AppDelegate.swift in Sources */,
+				0A747D4E1CAF0956008C6D87 /* Perceptron.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,9 +262,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = OCR/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kevinayuque.OCR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -261,9 +275,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = OCR/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kevinayuque.OCR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -286,6 +302,7 @@
 				0A747D481CAC8868008C6D87 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
