@@ -17,11 +17,13 @@ class TrainViewController: UIViewController {
     let threshold : Int = 0
     let categories : Int = 7
     var isLearning=true
+    let inputWidth = 12
+    let inputHeight = 12
     
-    @IBOutlet weak var learnButton: UIButton!
     var chances = 3
     var category = 0
     
+    @IBOutlet weak var learnButton: UIButton!
     @IBOutlet weak var exampleLabel: UILabel!
     @IBOutlet weak var draw: DrawView!
     override func viewDidLoad() {
@@ -29,17 +31,9 @@ class TrainViewController: UIViewController {
 
         self.title="Perceptron"
         
+        //STEP 0
         b = [Int](count: categories, repeatedValue: 0)
-        
-        w = [[Int]](count: 144, repeatedValue: [Int](count: categories, repeatedValue: 0))
-        
-        // print(w)
-        
-        //var inputN = 100
-        //var outputN = 5
-        
-         //threshold = 0
-        
+        w = [[Int]](count: inputWidth*inputHeight, repeatedValue: [Int](count: categories, repeatedValue: 0))
         
         // Do any additional setup after loading the view.
     }
@@ -66,51 +60,26 @@ class TrainViewController: UIViewController {
     }
     @IBAction func learn(sender: AnyObject) {
         
-        var pixelsArray = [Float]()
-        
-        
-        // Extract drawing from canvas and remove surrounding whitespace
         let croppedImage = self.cropImage(draw.image!, toRect: draw.boundingBox!)
-        // Scale character to max 20px in either dimension
-        let scaledImage = self.scaleImage(croppedImage, maxLength: 10)
-        // Center character in 28x28 white box
+        let scaledImage = self.scaleImage(croppedImage, maxLength: 12)
         let character = self.addBorderToImage(scaledImage)
         
-        //let character = scaledImage
+        let pixels = toArray(character)
         
-        let pixelData = CGDataProviderCopyData(CGImageGetDataProvider(character.CGImage))
-        let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
-        let bytesPerRow = CGImageGetBytesPerRow(character.CGImage)
-        let bytesPerPixel = (CGImageGetBitsPerPixel(character.CGImage) / 8)
-        var position = 0
-        for _ in 0..<Int(character.size.height) {
-            for _ in 0..<Int(character.size.width) {
-                let alpha = Float(data[position + 3])
-                pixelsArray.append(alpha / 255)
-                position += bytesPerPixel
-            }
-            if position % bytesPerRow != 0 {
-                position += (bytesPerRow - (position % bytesPerRow))
-            }
-        }
-        //return pixelsArray
-
-        
-        print("hi")
-        print(pixelsArray)
-        print(bipolar(pixelsArray))
+        print(pixels)
+        print(bipolar(pixels))
         self.clear(nil)
         
         if isLearning{
-            var ogOutput = [Int](count: 7, repeatedValue: -1)
+            let ogOutput = [Int](count: categories, repeatedValue: -1)
             var output = ogOutput
             output[category] = 1
-            train(bipolar(pixelsArray),output: output)
+            train(bipolar(pixels),output: output)
             
-            chances--
+            chances -= 1
             if chances == 0{
                 chances = 3
-                category++
+                category += 1
                 switch(category){
                 case 0:
                     self.exampleLabel.text="A"
@@ -131,11 +100,10 @@ class TrainViewController: UIViewController {
                     exampleLabel.text=""
                     isLearning = false
                     break
-                    //STOP
                 }
             }
         }else{
-            let result = classify(bipolar(pixelsArray))
+            let result = classify(bipolar(pixels))
             print(result)
         }
         
@@ -165,13 +133,23 @@ class TrainViewController: UIViewController {
         
         var weightChanges:Int
         var epochs=0
+        
+        // STEP 1
+        
         while stoppingCondition == false{
-            epochs++
+            epochs += 1
             weightChanges=0
+            //print(epochs)
+            //STEP 2
+            
+            print(input.count)
             for i in 0 ... input.count - 1{
                 for j in 0 ... output.count - 1{
                     var sum = 0
                     //print(j)
+                    
+                    //STEP 4
+                    
                     for i2 in 0 ... input.count - 1{
                         sum = sum + x[i2] * w[i2][j]
                     }
@@ -189,13 +167,19 @@ class TrainViewController: UIViewController {
                         y[j] = 0
                         break
                     }
-                    //print(y[j])
-                    
-                    //for j for i
-                    if output[j] != y[j]{
-                        weightChanges++
-                        b[j] = b[j] + output[j]
-                        w[i][j] = w[i][j] + output[j] * x[i]
+                    print(y[j])
+                }
+                
+                print(output)
+                print(y)
+                for j in 0 ... output.count - 1{
+                    for i2 in 0 ... input.count - 1{
+                        if output[j] != y[j]{
+                            print("weight changes in \(j)")
+                            weightChanges += 1
+                            b[j] = b[j] + output[j]
+                            w[i2][j] = w[i2][j] + output[j] * x[i2]
+                        }
                     }
                 }
             }
@@ -204,17 +188,18 @@ class TrainViewController: UIViewController {
             }
         }
         print("Training complete. \(epochs) epochs")
+        print(w)
     }
     
     func classify(input:[Int])->[Int]{
         var x = input
-        var y_in=[Int](count: 7, repeatedValue: 0)
+        var y_in=[Int](count: categories, repeatedValue: 0)
         var y : [Int]!
         y = [Int](count: categories, repeatedValue: 0)
         
         
-        
-            for j in 0 ... 7 - 1{
+            print(w)
+            for j in 0 ... categories - 1{
                 var sum = 0
                 //print(j)
                 for i2 in 0 ... input.count - 1{
@@ -235,6 +220,9 @@ class TrainViewController: UIViewController {
                     break
                 }
             }
+      
+        
+        
         //print(y_in)
         
         return y
@@ -262,16 +250,32 @@ class TrainViewController: UIViewController {
     }
     
     private func addBorderToImage(image: UIImage) -> UIImage {
-        UIGraphicsBeginImageContext(CGSize(width: 12, height: 12))
+        UIGraphicsBeginImageContext(CGSize(width: inputWidth, height: inputHeight))
         let white = UIImage(named: "white")!
         white.drawAtPoint(CGPointZero)
-        image.drawAtPoint(CGPointMake((12 - image.size.width) / 2, (12 - image.size.height) / 2))
+        image.drawAtPoint(CGPointMake((CGFloat(inputWidth) - image.size.width) / 2, (CGFloat(inputHeight) - image.size.height) / 2))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return newImage
     }
     
-    func convertToMatrix(image:UIImage){
-        
+    func toArray(image:UIImage)->[Float]{
+        var pixelsArray = [Float]()
+        let pixelData = CGDataProviderCopyData(CGImageGetDataProvider(image.CGImage))
+        let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
+        let bytesPerRow = CGImageGetBytesPerRow(image.CGImage)
+        let bytesPerPixel = (CGImageGetBitsPerPixel(image.CGImage) / 8)
+        var position = 0
+        for _ in 0..<Int(image.size.height) {
+            for _ in 0..<Int(image.size.width) {
+                let alpha = Float(data[position + 3])
+                pixelsArray.append(alpha / 255)
+                position += bytesPerPixel
+            }
+            if position % bytesPerRow != 0 {
+                position += (bytesPerRow - (position % bytesPerRow))
+            }
+        }
+        return pixelsArray
     }
 }
