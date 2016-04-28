@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Q5A-xw-rLD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Q5A-xw-rLD">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -37,56 +37,83 @@
                         <viewControllerLayoutGuide type="bottom" id="fgp-5S-sRs"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="BvR-jJ-q1a">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qJc-gP-VHh" customClass="DrawView" customModule="OCR" customModuleProvider="target">
-                                <rect key="frame" x="36" y="160" width="248" height="248"/>
+                                <rect key="frame" x="60" y="112" width="544" height="544"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="2on-mb-1C4"/>
                                     <constraint firstAttribute="width" secondItem="qJc-gP-VHh" secondAttribute="height" multiplier="1:1" id="jWs-dD-4cA"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="2on-mb-1C4"/>
+                                    </mask>
+                                </variation>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csS-DV-bw6">
-                                <rect key="frame" x="16" y="428" width="144" height="30"/>
-                                <state key="normal" title="Clear"/>
-                                <connections>
-                                    <action selector="clear:" destination="ezC-N7-lfp" eventType="touchUpInside" id="AaF-Tm-mjY"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dl-2i-SN3">
-                                <rect key="frame" x="147" y="64" width="26" height="96"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AgL-o1-uWD">
-                                <rect key="frame" x="156" y="428" width="144" height="30"/>
-                                <state key="normal" title="Learn"/>
-                                <connections>
-                                    <action selector="learn:" destination="ezC-N7-lfp" eventType="touchUpInside" id="uUr-WL-gz0"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="WZA-h6-dJh">
+                                <rect key="frame" x="664" y="164" width="300" height="440"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dl-2i-SN3">
+                                        <rect key="frame" x="137" y="0.0" width="26" height="48"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vfe-lC-DjH">
+                                        <rect key="frame" x="0.0" y="53" width="300" height="299"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="vfe-lC-DjH" secondAttribute="height" multiplier="1:1" constant="1" id="jXB-rU-r5Y"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AgL-o1-uWD">
+                                        <rect key="frame" x="122.5" y="357" width="55" height="39"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <state key="normal" title="Learn"/>
+                                        <connections>
+                                            <action selector="learn:" destination="ezC-N7-lfp" eventType="touchUpInside" id="uUr-WL-gz0"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csS-DV-bw6">
+                                        <rect key="frame" x="124" y="401" width="52" height="39"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <state key="normal" title="Clear"/>
+                                        <connections>
+                                            <action selector="clear:" destination="ezC-N7-lfp" eventType="touchUpInside" id="AaF-Tm-mjY"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="TlB-eo-gHT"/>
+                                    <constraint firstAttribute="trailing" secondItem="vfe-lC-DjH" secondAttribute="trailing" id="aza-PJ-USo"/>
+                                    <constraint firstItem="vfe-lC-DjH" firstAttribute="leading" secondItem="WZA-h6-dJh" secondAttribute="leading" id="d54-z4-gGa"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.83550966035428986" green="0.99905303030303028" blue="0.93290767991289503" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.83550966039999996" green="0.99905303030000003" blue="0.93290767990000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="AgL-o1-uWD" secondAttribute="trailing" id="18c-Fx-nco"/>
                             <constraint firstItem="qJc-gP-VHh" firstAttribute="centerY" secondItem="BvR-jJ-q1a" secondAttribute="centerY" id="3hw-bw-GI4"/>
-                            <constraint firstItem="AgL-o1-uWD" firstAttribute="width" secondItem="csS-DV-bw6" secondAttribute="width" id="5zi-4F-zYm"/>
+                            <constraint firstItem="WZA-h6-dJh" firstAttribute="centerY" secondItem="BvR-jJ-q1a" secondAttribute="centerY" id="C1K-xk-gZn"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="WZA-h6-dJh" secondAttribute="trailing" constant="40" id="DTJ-g7-Tn3"/>
                             <constraint firstItem="qJc-gP-VHh" firstAttribute="leading" secondItem="BvR-jJ-q1a" secondAttribute="leadingMargin" constant="20" id="EkM-SK-OR9"/>
-                            <constraint firstItem="qJc-gP-VHh" firstAttribute="top" secondItem="6dl-2i-SN3" secondAttribute="bottom" id="KGJ-F3-IkC"/>
-                            <constraint firstItem="AgL-o1-uWD" firstAttribute="top" secondItem="qJc-gP-VHh" secondAttribute="bottom" constant="20" id="NMX-MD-KWd"/>
-                            <constraint firstItem="csS-DV-bw6" firstAttribute="top" secondItem="AgL-o1-uWD" secondAttribute="top" id="QRx-vr-NNM"/>
-                            <constraint firstItem="csS-DV-bw6" firstAttribute="leading" secondItem="BvR-jJ-q1a" secondAttribute="leadingMargin" id="WlS-PQ-cVs"/>
-                            <constraint firstItem="6dl-2i-SN3" firstAttribute="centerX" secondItem="BvR-jJ-q1a" secondAttribute="centerX" id="bJt-YK-dSJ"/>
+                            <constraint firstItem="WZA-h6-dJh" firstAttribute="leading" secondItem="qJc-gP-VHh" secondAttribute="trailing" constant="60" id="Y1R-Bh-jzT"/>
+                            <constraint firstItem="qJc-gP-VHh" firstAttribute="leading" secondItem="BvR-jJ-q1a" secondAttribute="leadingMargin" constant="40" id="YCE-Yx-FMP"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qJc-gP-VHh" secondAttribute="trailing" constant="20" id="dbi-b0-td2"/>
-                            <constraint firstItem="AgL-o1-uWD" firstAttribute="leading" secondItem="csS-DV-bw6" secondAttribute="trailing" id="gl2-Ae-ykZ"/>
-                            <constraint firstItem="6dl-2i-SN3" firstAttribute="top" secondItem="7XO-Fs-bY1" secondAttribute="bottom" id="pfW-xY-WEH"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="EkM-SK-OR9"/>
+                                <exclude reference="dbi-b0-td2"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="0xd-ni-zQk"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
+                        <outlet property="characterImage" destination="vfe-lC-DjH" id="e1D-JZ-YuJ"/>
                         <outlet property="draw" destination="qJc-gP-VHh" id="f2i-Ju-CIl"/>
                         <outlet property="exampleLabel" destination="6dl-2i-SN3" id="Waj-uU-U98"/>
                         <outlet property="learnButton" destination="AgL-o1-uWD" id="mSj-l8-ihn"/>

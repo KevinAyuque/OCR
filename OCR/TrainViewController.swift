@@ -25,6 +25,7 @@ class TrainViewController: UIViewController {
     
     @IBOutlet weak var learnButton: UIButton!
     @IBOutlet weak var exampleLabel: UILabel!
+    @IBOutlet weak var characterImage: UIImageView!
     @IBOutlet weak var draw: DrawView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,13 +62,15 @@ class TrainViewController: UIViewController {
     @IBAction func learn(sender: AnyObject) {
         
         let croppedImage = self.cropImage(draw.image!, toRect: draw.boundingBox!)
-        let scaledImage = self.scaleImage(croppedImage, maxLength: 12)
+        let scaledImage = self.scaleImage(croppedImage, maxLength: 11)
         let character = self.addBorderToImage(scaledImage)
+        
+        self.characterImage.image = character
         
         let pixels = toArray(character)
         
-        print(pixels)
-        print(bipolar(pixels))
+        //print(pixels)
+        //print(bipolar(pixels))
         self.clear(nil)
         
         if isLearning{
