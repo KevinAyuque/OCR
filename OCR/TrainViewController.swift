@@ -8,12 +8,13 @@
 
 import UIKit
 
-class TrainViewController: UIViewController {
+class TrainViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     
     var b : [Int]!
-    
     var w : [[Int]]!
+    var character : [Int]!
+    
     let threshold : Int = 0
     let categories : Int = 7
     var isLearning=true
@@ -25,8 +26,12 @@ class TrainViewController: UIViewController {
     
     @IBOutlet weak var learnButton: UIButton!
     @IBOutlet weak var exampleLabel: UILabel!
-    @IBOutlet weak var characterImage: UIImageView!
+    
+    @IBOutlet weak var characterCollectionView: UICollectionView!
+    
+    
     @IBOutlet weak var draw: DrawView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,9 +40,17 @@ class TrainViewController: UIViewController {
         //STEP 0
         b = [Int](count: categories, repeatedValue: 0)
         w = [[Int]](count: inputWidth*inputHeight, repeatedValue: [Int](count: categories, repeatedValue: 0))
-        
+        characterCollectionView.delegate = self
+        characterCollectionView.dataSource = self
+        characterCollectionView.layer.borderColor=UIColor.blackColor().CGColor
+        characterCollectionView.layer.borderWidth = 1
+        character = [Int](count: inputWidth * inputHeight, repeatedValue: -1)
         // Do any additional setup after loading the view.
     }
+    
+    
+    
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -62,15 +75,15 @@ class TrainViewController: UIViewController {
     @IBAction func learn(sender: AnyObject) {
         
         let croppedImage = self.cropImage(draw.image!, toRect: draw.boundingBox!)
-        let scaledImage = self.scaleImage(croppedImage, maxLength: 11)
-        let character = self.addBorderToImage(scaledImage)
+        //let scaledImage = self.scaleImage(croppedImage, maxLength: 11)
+        let scaledImage = self.scaleImage(croppedImage, maxLength: inputWidth, equalRatio:true)
+        //let character = self.addBorderToImage(scaledImage)
         
-        self.characterImage.image = character
+        let pixels = toArray(scaledImage)
         
-        let pixels = toArray(character)
+        self.character = bipolar(pixels)
+        self.characterCollectionView.reloadData()
         
-        //print(pixels)
-        //print(bipolar(pixels))
         self.clear(nil)
         
         if isLearning{
@@ -102,11 +115,16 @@ class TrainViewController: UIViewController {
                     learnButton.setTitle("Classify", forState: .Normal)
                     exampleLabel.text=""
                     isLearning = false
+                    
+                    //See final weight and bias
+                    print(b)
+                    print(w)
                     break
                 }
             }
         }else{
             let result = classify(bipolar(pixels))
+            interpretResult(result)
             print(result)
         }
         
@@ -116,6 +134,7 @@ class TrainViewController: UIViewController {
         var bipolarArray = [Int]()
         
         for i in array{
+            //Using 100/255 as threshold
             if i == 0{
                 bipolarArray.append(-1)
             }else{
@@ -125,9 +144,37 @@ class TrainViewController: UIViewController {
         return bipolarArray
     }
     
+    func interpretResult(result:[Int]){
+        
+        var results = ""
+        for i in 0 ... result.count - 1{
+            if result[i] == 1 {
+                switch(i){
+                case 0:
+                    results=results + "A "
+                case 1:
+                    results=results + "B "
+                case 2:
+                    results=results + "C "
+                case 3:
+                    results=results + "D "
+                case 4:
+                    results=results + "E "
+                case 5:
+                    results=results + "F "
+                default:
+                    results=results + "G "
+                }
+            }
+            self.exampleLabel.text=results
+        }
+
+    }
+    
     func train(input:[Int], output:[Int]){
         
         print("Training starts")
+        print(output)
         var stoppingCondition = false
         var x = input
         var y_in=[Int](count: output.count, repeatedValue: 0)
@@ -142,15 +189,11 @@ class TrainViewController: UIViewController {
         while stoppingCondition == false{
             epochs += 1
             weightChanges=0
-            //print(epochs)
             //STEP 2
             
-            print(input.count)
             for i in 0 ... input.count - 1{
                 for j in 0 ... output.count - 1{
                     var sum = 0
-                    //print(j)
-                    
                     //STEP 4
                     
                     for i2 in 0 ... input.count - 1{
@@ -158,7 +201,6 @@ class TrainViewController: UIViewController {
                     }
                     y_in[j]=b[j] + sum
                     
-                    //print(y_in[j])
                     switch(y_in[j]){
                     case _ where y_in[j] > threshold:
                         y[j] = 1
@@ -170,18 +212,20 @@ class TrainViewController: UIViewController {
                         y[j] = 0
                         break
                     }
-                    print(y[j])
                 }
                 
-                print(output)
-                print(y)
                 for j in 0 ... output.count - 1{
-                    for i2 in 0 ... input.count - 1{
-                        if output[j] != y[j]{
-                            print("weight changes in \(j)")
-                            weightChanges += 1
-                            b[j] = b[j] + output[j]
+                    
+                    
+                    if output[j] != y[j]{
+                        b[j] = b[j] + output[j]
+                        for i2 in 0 ... input.count - 1{
+                            let old_w = w[i2][j]
                             w[i2][j] = w[i2][j] + output[j] * x[i2]
+                            weightChanges += 1
+                            /*if old_w != w[i2][j]{
+                             weightChanges += 1
+                             }*/
                         }
                     }
                 }
@@ -191,7 +235,6 @@ class TrainViewController: UIViewController {
             }
         }
         print("Training complete. \(epochs) epochs")
-        print(w)
     }
     
     func classify(input:[Int])->[Int]{
@@ -201,16 +244,13 @@ class TrainViewController: UIViewController {
         y = [Int](count: categories, repeatedValue: 0)
         
         
-            print(w)
             for j in 0 ... categories - 1{
                 var sum = 0
-                //print(j)
                 for i2 in 0 ... input.count - 1{
                     sum = sum + x[i2] * w[i2][j]
                 }
                 y_in[j]=b[j] + sum
                 
-                //print(y_in[j])
                 switch(y_in[j]){
                 case _ where y_in[j] > threshold:
                     y[j] = 1
@@ -225,9 +265,6 @@ class TrainViewController: UIViewController {
             }
       
         
-        
-        //print(y_in)
-        
         return y
     }
     
@@ -238,12 +275,17 @@ class TrainViewController: UIViewController {
     }
     
     
-    private func scaleImage(image:UIImage, maxLength:Int) -> UIImage{
-        let size = CGSize(width: min(CGFloat(maxLength) * image.size.width / image.size.height, CGFloat(maxLength)), height: min(CGFloat(maxLength) * image.size.height / image.size.width, CGFloat(maxLength)))
+    private func scaleImage(image:UIImage, maxLength:Int, equalRatio:Bool) -> UIImage{
+        var size = CGSize()
+        if equalRatio == false{
+            size = CGSize(width: min(CGFloat(maxLength) * image.size.width / image.size.height, CGFloat(maxLength)), height: min(CGFloat(maxLength) * image.size.height / image.size.width, CGFloat(maxLength)))
+        }else{
+            size = CGSize(width: maxLength, height: maxLength)
+        }
         let newRect = CGRectIntegral(CGRect(x: 0, y: 0, width: size.width, height: size.height))
         UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
         let context = UIGraphicsGetCurrentContext()
-        CGContextSetInterpolationQuality(context, CGInterpolationQuality.Medium)
+        CGContextSetInterpolationQuality(context, CGInterpolationQuality.High)
         image.drawInRect(newRect)
         let newImageRef = CGBitmapContextCreateImage(context)! as CGImage
         let newImage = UIImage(CGImage: newImageRef, scale: 1.0, orientation: UIImageOrientation.Up)
@@ -280,5 +322,40 @@ class TrainViewController: UIViewController {
             }
         }
         return pixelsArray
+    }
+    
+    //Character array
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return inputWidth
+    }
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return inputHeight
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        let cell = characterCollectionView.dequeueReusableCellWithReuseIdentifier("pixel", forIndexPath: indexPath)
+        cell.layer.borderColor=UIColor.blackColor().CGColor
+        cell.layer.borderWidth = 0.5
+        if character[(indexPath.section * inputWidth) + indexPath.row] == 1{
+            cell.backgroundColor=UIColor.blackColor()
+        }else{
+            cell.backgroundColor=UIColor.whiteColor()
+        }
+        return cell
+    }
+    
+    
+    func collectionView(collectionView : UICollectionView,layout collectionViewLayout:UICollectionViewLayout,sizeForItemAtIndexPath indexPath:NSIndexPath) -> CGSize
+    {
+        var cellWidth:CGFloat!
+        var cellHeight:CGFloat!
+        
+        cellWidth=characterCollectionView.frame.width/CGFloat(inputWidth)
+        cellHeight=characterCollectionView.frame.width/CGFloat(inputHeight)
+        let cellSize:CGSize = CGSizeMake(cellWidth, cellHeight)
+        return cellSize
     }
 }

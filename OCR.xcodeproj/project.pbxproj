@@ -15,6 +15,7 @@
 		0A747D4A1CACA50B008C6D87 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A747D491CACA50B008C6D87 /* DrawView.swift */; };
 		0A747D4C1CADC4B3008C6D87 /* TrainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A747D4B1CADC4B3008C6D87 /* TrainViewController.swift */; };
 		0A747D4E1CAF0956008C6D87 /* Perceptron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A747D4D1CAF0956008C6D87 /* Perceptron.swift */; };
+		0AA661521CD26C74006E7D52 /* CharacterCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA661511CD26C74006E7D52 /* CharacterCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		0A747D491CACA50B008C6D87 /* DrawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
 		0A747D4B1CADC4B3008C6D87 /* TrainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainViewController.swift; sourceTree = "<group>"; };
 		0A747D4D1CAF0956008C6D87 /* Perceptron.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Perceptron.swift; sourceTree = "<group>"; };
+		0AA661511CD26C74006E7D52 /* CharacterCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterCollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				0A747D431CAC8868008C6D87 /* Info.plist */,
 				0A747D4B1CADC4B3008C6D87 /* TrainViewController.swift */,
 				0A747D4D1CAF0956008C6D87 /* Perceptron.swift */,
+				0AA661511CD26C74006E7D52 /* CharacterCollectionView.swift */,
 			);
 			path = OCR;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AA661521CD26C74006E7D52 /* CharacterCollectionView.swift in Sources */,
 				0A747D4A1CACA50B008C6D87 /* DrawView.swift in Sources */,
 				0A747D4C1CADC4B3008C6D87 /* TrainViewController.swift in Sources */,
 				0A747D3A1CAC8868008C6D87 /* ViewController.swift in Sources */,

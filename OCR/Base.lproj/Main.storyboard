@@ -54,7 +54,7 @@
                                 </variation>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="WZA-h6-dJh">
-                                <rect key="frame" x="664" y="164" width="300" height="440"/>
+                                <rect key="frame" x="664" y="164" width="300" height="441"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dl-2i-SN3">
                                         <rect key="frame" x="137" y="0.0" width="26" height="48"/>
@@ -62,14 +62,33 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vfe-lC-DjH">
-                                        <rect key="frame" x="0.0" y="53" width="300" height="299"/>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aqo-J0-ADg">
+                                        <rect key="frame" x="0.0" y="53" width="300" height="300"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="vfe-lC-DjH" secondAttribute="height" multiplier="1:1" constant="1" id="jXB-rU-r5Y"/>
+                                            <constraint firstAttribute="width" secondItem="aqo-J0-ADg" secondAttribute="height" multiplier="1:1" id="hCt-LR-ohj"/>
                                         </constraints>
-                                    </imageView>
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="3gl-Dh-wCQ">
+                                            <size key="itemSize" width="50" height="50"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="pixel" id="ld9-7o-8wY">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <color key="backgroundColor" red="0.0" green="0.68941366790000003" blue="0.58697912640000005" alpha="1" colorSpace="calibratedRGB"/>
+                                            </collectionViewCell>
+                                        </cells>
+                                    </collectionView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AgL-o1-uWD">
-                                        <rect key="frame" x="122.5" y="357" width="55" height="39"/>
+                                        <rect key="frame" x="123" y="358" width="55" height="39"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <state key="normal" title="Learn"/>
                                         <connections>
@@ -77,7 +96,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csS-DV-bw6">
-                                        <rect key="frame" x="124" y="401" width="52" height="39"/>
+                                        <rect key="frame" x="124" y="402" width="52" height="39"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <state key="normal" title="Clear"/>
                                         <connections>
@@ -86,9 +105,9 @@
                                     </button>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="aqo-J0-ADg" firstAttribute="leading" secondItem="WZA-h6-dJh" secondAttribute="leading" id="Rrt-rq-QpL"/>
                                     <constraint firstAttribute="width" constant="300" id="TlB-eo-gHT"/>
-                                    <constraint firstAttribute="trailing" secondItem="vfe-lC-DjH" secondAttribute="trailing" id="aza-PJ-USo"/>
-                                    <constraint firstItem="vfe-lC-DjH" firstAttribute="leading" secondItem="WZA-h6-dJh" secondAttribute="leading" id="d54-z4-gGa"/>
+                                    <constraint firstAttribute="trailing" secondItem="aqo-J0-ADg" secondAttribute="trailing" id="Xnz-ox-06S"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -113,7 +132,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                     <connections>
-                        <outlet property="characterImage" destination="vfe-lC-DjH" id="e1D-JZ-YuJ"/>
+                        <outlet property="characterCollectionView" destination="aqo-J0-ADg" id="7sf-5N-TF2"/>
                         <outlet property="draw" destination="qJc-gP-VHh" id="f2i-Ju-CIl"/>
                         <outlet property="exampleLabel" destination="6dl-2i-SN3" id="Waj-uU-U98"/>
                         <outlet property="learnButton" destination="AgL-o1-uWD" id="mSj-l8-ihn"/>
