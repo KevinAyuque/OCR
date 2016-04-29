@@ -7,27 +7,6 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--1 Layer-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="OCR" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="1 Layer" id="nQI-7e-buY">
-                        <barButtonItem key="rightBarButtonItem" title="Train" id="82O-CS-G8l"/>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="798" y="313"/>
-        </scene>
         <!--Train View Controller-->
         <scene sceneID="NsM-UT-dxz">
             <objects>
@@ -143,25 +122,6 @@
             <point key="canvasLocation" x="1733" y="313"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="vj6-Ej-ysQ">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qDL-MN-ak2" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="g5r-7F-crG">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="vg3-MC-Te6"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WKq-SX-GDd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="374" y="313"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="Sbj-68-eMd">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Q5A-xw-rLD" sceneMemberID="viewController">
@@ -178,7 +138,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tAg-Ka-TRW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1201" y="313"/>
+            <point key="canvasLocation" x="970" y="285"/>
         </scene>
     </scenes>
 </document>
